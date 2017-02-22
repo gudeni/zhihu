@@ -1,0 +1,17 @@
+pymysql  奇怪呀
+用insert into 命令
+
+cursor.execute("insert into a (urlToken,name,gender,voteupCount,favoritedCount,"+
+                       "followerCount,thankedCount,answerCount,articlesCount,questionCount,"+
+                       "followingQuestionCount,followingCount,sinaWeiboUrl,sinaWeiboName,logsCount,"+
+                       "locations,description,headline,employments,business) values "+
+                       "('%s','%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%s','%s',%d,'%s','%s','%s','%s','%s')" %
+                       (p['urlToken'], p['name'], p['gender'], p['voteupCount'], p['favoritedCount'],
+                        p['followerCount'], p['thankedCount'], p['answerCount'], p['articlesCount'],p['questionCount'],
+                        p['followingQuestionCount'], p['followingCount'],p['sinaWeiboUrl'], p['sinaWeiboName'], p['logsCount'],
+                        p['locations'],p['description'],p['headline'],p['employments'],p['business']))
+
+前面的字符串可以用 + 来折行
+但是到了 '%s' 就不行了，用了 + 就会报错
+
+另外字符串 '%s' 一定要加上 ‘’ 引号！！！
