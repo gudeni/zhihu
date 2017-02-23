@@ -4,6 +4,7 @@ import pymysql.cursors
 # port默认3306
 # password 无
 # host就是本地 127.0.0.1
+
 config = {
     'user':'root',
     'passwd': '',
@@ -20,14 +21,14 @@ cursor = connection.cursor()
 # 创建数据库，表
 def create_database(cur):
     database_name = 'zhihu'
-    table_name = 'a'
+    table_name = 't2'
     # 创建数据库
     cur.execute('create database if not exists '+database_name)
     cur.execute('use '+database_name)
     cur.execute('create table '+table_name
                     +'('
                     +'id int not null primary key auto_increment,'
-                    +'urlToken char(20) not null,'
+                    +'urlToken char(20) not null unique,'
                     +'name char(20) not null,'
                     +'gender int(1) not null,'
                     +'locations char(50) not null,'
@@ -58,13 +59,16 @@ def create_database(cur):
 # create_database(cursor)
 
 cursor.execute("use zhihu")
-cursor.execute("select urlToken from a")
+# cursor.execute("select max(id) from t1")
+cursor.execute("select urlToken from a where id>0")
 get = cursor.fetchall()
+print(get)
 peopleList = []
 for i in get:
     peopleList.append(i[0])
-
 print(peopleList)
+
+
 # 提交，不然无法保存新建或者修改的数据
 connection.commit()
 # 关闭游标
